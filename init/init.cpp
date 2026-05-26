@@ -1089,6 +1089,8 @@ int SecondStageMain(int argc, char** argv) {
     std::string bootmode = GetProperty("ro.bootmode", "");
     if (bootmode == "charger") {
         am.QueueEventTrigger("charger");
+    } else if (strncmp(bootmode.c_str(), "ffbm", 4) == 0) {
+        HandlePowerctlMessage("reboot,bootloader");
     } else {
         am.QueueEventTrigger("late-init");
     }
